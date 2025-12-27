@@ -133,4 +133,24 @@ EXEC dbo.usp_GetOrdersByCustomer_Recompile @CustomerID = 895;
 GO
 ```
 EXECUTION PLAN:
+## Observations
 
+This project tests six different scenarios combining stored procedure type and customer data volume:
+
+| SP Type               | Customer Volume | Execution Time (ms) | Logical Reads | Physical Reads |
+|-----------------------|----------------|-------------------|---------------|----------------|
+| Simple                | Large          | 1870              | 1292          | 0              |
+| Simple                | Small          | 10                | 4             | 0              |
+| Simple + RECOMPILE    | Large          | 1670              | 1292          | 0              |
+| Simple + RECOMPILE    | Small          | 6                 | 3             | 0              |
+| Dynamic SQL           | Large          | 1818              | 1292          | 0              |
+| Dynamic SQL           | Small          | 100               | 3             | 0              |
+
+### Key Results
+- Parameter Sniffing effect: Simple SP for a large customer causes high execution time and logical reads; same SP for a small customer is very fast.  
+- Mitigation: Dynamic SQL and OPTION(RECOMPILE) reduce logical reads and execution time for small customers.  
+- Best performance: OPTION(RECOMPILE) provides the lowest execution time and logical reads for small customers, while still performing well for large customers.  
+- Physical Reads: Zero in all cases, showing that differences are due to plan efficiency, not disk I/O.
+
+### Conclusion
+Six scenarios were tested to demonstrate parameter sniffing in SQL Server. Results show that for simple queries, OPTION(RECOMPILE) is more effective than Dynamic SQL, whereas Dynamic SQL is more useful for complex queries with multiple conditional predicates. This project highlights how plan reuse can affect performance and how mitigation techniques can optimize query execution.
