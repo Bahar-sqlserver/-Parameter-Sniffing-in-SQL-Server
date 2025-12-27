@@ -66,7 +66,8 @@ GO
 EXEC dbo.usp_GetOrdersByCustomer @CustomerID = 1;
 GO
 ```
-execution plan:![exec](ExecPlanProcLargeAmount.png) [RealExecPlan](ExecPlanProcLargeAmount.sqlplan)
+execution plan:
+![exec](ExecPlanProcLargeAmount.png) [RealExecPlan](ExecPlanProcLargeAmount.sqlplan)
 
 6.Testing Simple SP with a customer that has few orders:
 ```sql
@@ -78,7 +79,8 @@ GO
 EXEC dbo.usp_GetOrdersByCustomer @CustomerID = 895;
 GO
 ```
-execution plan: ![exec](ExecPlanProcSmallAmount.png) [RealExecPlan](ExecPlanProcSmallAmount.sqlplan)
+execution plan: 
+![exec](ExecPlanProcSmallAmount.png) [RealExecPlan](ExecPlanProcSmallAmount.sqlplan)
 
 7. Creating DynamicSP
 ```sql
@@ -103,14 +105,16 @@ GO
 EXEC dbo.usp_GetOrdersByCustomer_Dynamic @CustomerID = 1;
 GO
 ```
-execution plan: ![exec](ExecPlanProcLargeAmountDynamic.png) [RealExecPlan](ExecPlanProcLargeAmountDynamic.sqlplan)
+execution plan:
+![exec](ExecPlanProcLargeAmountDynamic.png) [RealExecPlan](ExecPlanProcLargeAmountDynamic.sqlplan)
 
 9.Testing DynamicSP with a customer that has few orders:
 ```sql
 EXEC dbo.usp_GetOrdersByCustomer_Dynamic @CustomerID = 895;
 GO
 ```
-execution plan: ![exec](ExecPlanProcSmallAmountDynamic.png) [RealExecPlan](ExecPlanProcSmallAmountDynamic.sqlplan)
+execution plan:
+![exec](ExecPlanProcSmallAmountDynamic.png) [RealExecPlan](ExecPlanProcSmallAmountDynamic.sqlplan)
 
 10. Creating Simple stored procedure with OPTION(RECOMPILE).
 ```sql
@@ -134,13 +138,15 @@ GO
     GO
   ```
 
-EXECUTION PLAN: ![exec](ExecPlanProcLargeAmountRecompile.png) [RealExecPlan](ExecPlanProcLargeAmountRecompile.sqlplan)
+EXECUTION PLAN:
+![exec](ExecPlanProcLargeAmountRecompile.png) [RealExecPlan](ExecPlanProcLargeAmountRecompile.sqlplan)
 12. Testing Simple SP WITH OPTION(RECOMPILE) with a customer that has few orders
 ```SQL
 EXEC dbo.usp_GetOrdersByCustomer_Recompile @CustomerID = 895;
 GO
 ```
-EXECUTION PLAN: ![exec](ExecPlanProcSmallAmountRecompile.png) [RealExecPlan](ExecPlanProcSmallAmountRecompile.sqlplan)
+EXECUTION PLAN: 
+![exec](ExecPlanProcSmallAmountRecompile.png) [RealExecPlan](ExecPlanProcSmallAmountRecompile.sqlplan)
 ## Observations
 
 This project tests six different scenarios combining stored procedure type and customer data volume:
