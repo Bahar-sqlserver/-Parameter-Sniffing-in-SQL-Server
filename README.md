@@ -2,7 +2,7 @@
 ##**Demonstrates the impact of parameter sniffing on execution plans and performance in SQL Server. Compares simple SPs, dynamic SQL, and OPTION(RECOMPILE to mitigate performance issues.**
 
 ## Scripts
-All SQL scripts used in this project are available in the Scripts/ folder:
+All SQL scripts used in this project are available here: [folder](FullReproParameterSnifing.sql):
 
 1. Creating Table
  ```SQL
@@ -66,7 +66,7 @@ GO
 EXEC dbo.usp_GetOrdersByCustomer @CustomerID = 1;
 GO
 ```
-execution plan:
+execution plan:![exec](ExecPlanProcLargeAmount.png) [RealExecPlan](ExecPlanProcLargeAmount.sqlplan)
 
 6.Testing Simple SP with a customer that has few orders:
 ```sql
@@ -78,7 +78,7 @@ GO
 EXEC dbo.usp_GetOrdersByCustomer @CustomerID = 895;
 GO
 ```
-execution plan:
+execution plan: ![exec](ExecPlanProcSmallAmount.png) [RealExecPlan](ExecPlanProcSmallAmount.sqlplan)
 
 7. Creating DynamicSP
 ```sql
@@ -103,9 +103,16 @@ GO
 EXEC dbo.usp_GetOrdersByCustomer_Dynamic @CustomerID = 1;
 GO
 ```
-execution plan:
+execution plan: ![exec](ExecPlanProcLargeAmountDynamic.png) [RealExecPlan](ExecPlanProcLargeAmountDynamic.sqlplan)
 
-9. Creating Simple stored procedure with OPTION(RECOMPILE).
+9.Testing DynamicSP with a customer that has few orders:
+```sql
+EXEC dbo.usp_GetOrdersByCustomer_Dynamic @CustomerID = 895;
+GO
+```
+execution plan: ![exec](ExecPlanProcSmallAmountDynamic.png) [RealExecPlan](ExecPlanProcSmallAmountDynamic.sqlplan)
+
+10. Creating Simple stored procedure with OPTION(RECOMPILE).
 ```sql
 DROP PROC IF EXISTS dbo.usp_GetOrdersByCustomer_Recompile;
 GO
@@ -121,18 +128,19 @@ BEGIN
 END
 GO
 ```
-10. Testing Simple SP WITH OPTION(RECOMPILE) with a customer that has many orders
+11. Testing Simple SP WITH OPTION(RECOMPILE) with a customer that has many orders
  ```SQL
     EXEC dbo.usp_GetOrdersByCustomer_Recompile @CustomerID = 1;
     GO
-    ```
-EXECUTION PLAN:
-11. Testing Simple SP WITH OPTION(RECOMPILE) with a customer that has few orders
+  ```
+
+EXECUTION PLAN: ![exec](ExecPlanProcLargeAmountRecompile.png) [RealExecPlan](ExecPlanProcLargeAmountRecompile.sqlplan)
+12. Testing Simple SP WITH OPTION(RECOMPILE) with a customer that has few orders
 ```SQL
 EXEC dbo.usp_GetOrdersByCustomer_Recompile @CustomerID = 895;
 GO
 ```
-EXECUTION PLAN:
+EXECUTION PLAN: ![exec](ExecPlanProcSmallAmountRecompile.png) [RealExecPlan](ExecPlanProcSmallAmountRecompile.sqlplan)
 ## Observations
 
 This project tests six different scenarios combining stored procedure type and customer data volume:
