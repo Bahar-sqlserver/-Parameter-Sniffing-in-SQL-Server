@@ -31,8 +31,8 @@ SELECT
 FROM (
     SELECT TOP (1000000)
         ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) AS n
-    FROM master..spt_values a
-CROSS JOIN master..spt_values b
+    FROM master.sys.all_objects a
+CROSS JOIN master.sys.all_objects b
 ) x;
 GO
 SELECT COUNT(*) FROM ORDERS;
