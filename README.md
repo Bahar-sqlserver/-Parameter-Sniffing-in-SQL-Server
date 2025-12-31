@@ -2,7 +2,7 @@
 ##**Demonstrates the impact of parameter sniffing on execution plans and performance in SQL Server. Compares simple SPs, dynamic SQL, and OPTION(RECOMPILE to mitigate performance issues.**
 
 ## Scripts
-All SQL scripts used in this project are available here: [folder](FullReproParameterSnifing.sql):
+All SQL scripts used in this project are available here: [Script](FullReproParameterSnifing.sql):
 
 1. Creating Table
  ```SQL
